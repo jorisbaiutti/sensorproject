@@ -19,5 +19,5 @@
     mqttgateway:
       # See 'snapcraft plugins'
       plugin: pyhton
-      python-version: python2
+      python-version: python3
       
