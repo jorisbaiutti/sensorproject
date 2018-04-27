@@ -13,3 +13,18 @@ $ virtualenv3 venv
 $ . ./venv/bin/activate
 $ pip3 install paho-mqtt tinkerforge
 ```
+
+Systemd unit `/etc/systemd/system/dapo.service`:
+```
+[Unit]
+Description=dapo
+After=network.target
+
+[Service]
+ExecStart=/home/pi/raspberry/gateway.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import time
 import socket
 import threading
@@ -16,6 +17,11 @@ BARUID = "k5Q"
 GPSUID = "fc9"
 
 client_id = str(socket.gethostname())
+
+# CWT to script dir
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -40,7 +46,7 @@ if __name__ == "__main__":
     # MQTT Setup
     client = mqtt.Client(client_id=client_id)
     client.on_connect = on_connect
-    client.tls_set("cert.pem")
+    client.tls_set("dapo.pem")
     client.username_pw_set("rpi", "p00rT7daH7Lnb0HzMfA0d+zY2fAOo3")
     client.connect("dapo.0x80.ch", 8883, 30)
 
