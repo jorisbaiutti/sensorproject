@@ -47,8 +47,11 @@ if __name__ == "__main__":
     # Send loop
     while(True):
         time.sleep(5)
-        latitude, _, longitude, _ = gpsBricklet.get_coordinates()
-        altitude = gpsBricklet.get_altitude()
-        temperature = tempBricklet.get_temperature()
-        air_pressure = barometerBricklet.get_air_pressure()
-        sendMessage(client, air_pressure,temperature,longitude,latitude,altitude)
+        try:
+            latitude, _, longitude, _ = gpsBricklet.get_coordinates()
+            altitude = gpsBricklet.get_altitude()
+            temperature = tempBricklet.get_temperature()
+            air_pressure = barometerBricklet.get_air_pressure()
+            sendMessage(client, air_pressure,temperature,longitude,latitude,altitude)
+        except e:
+            print(e)
