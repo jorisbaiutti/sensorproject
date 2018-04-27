@@ -17,8 +17,9 @@ def sendMessage(client, pressure,temprature,longitude,latitude, altitude):
     
     payload = str(time.time()) + ";" + str(pressure) + ";" + str(temprature) + ";" + str(longitude) + ";" + str(latitude) + ";" + str(altitude)
     topic = "collectors/" + str(socket.gethostname()) + "/metrics"
-    client.publish(topic, payload, qos=0, retain=False)
-    print(socket.gethostname())
+    success = client.publish(topic, payload, qos=0, retain=False)
+    print(success)
+    print("%s: %s", topic, payload)
 
 
 
