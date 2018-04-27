@@ -34,7 +34,7 @@ def on_disconnect(client, userdata, rc):
 
 def sendMessage(client, pressure, temperature, longitude, latitude, altitude):
     # timestamp; pressure; temprature; longitude, latitude, altitude
-    payload = "{};{};{};{};{};{}".format(time.time(), int(pressure), int(temperature), int(longitude), int(latitude), int(altitude.altitude))
+    payload = "{};{};{};{};{};{}".format(time.time(), pressure, temperature, longitude, latitude, altitude.altitude)
     topic = "collectors/{}/metrics".format(client_id)
     success = client.publish(topic, payload, qos=0, retain=False)
     print("{}: {}".format(topic, payload))
