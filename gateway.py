@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import time
 import socket
 import threading
@@ -26,11 +27,14 @@ os.chdir(dname)
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
-    
+
+def on_disconnect(client, userdata, rc):
+    print("Disconnected, exiting")
+    sys.exit(1)
 
 def sendMessage(client, pressure, temperature, longitude, latitude, altitude):
     # timestamp; pressure; temprature; longitude, latitude, altitude
-    payload = "{};{};{};{};{};{}".format(time.time(), pressure, temperature, longitude, latitude, altitude.altitude)
+    payload = "{};{};{};{};{};{}".format(time.time(), int(pressure), int(temperature), int(longitude), int(latitude), int(altitude.altitude))
     topic = "collectors/{}/metrics".format(client_id)
     success = client.publish(topic, payload, qos=0, retain=False)
     print("{}: {}".format(topic, payload))
@@ -46,6 +50,7 @@ if __name__ == "__main__":
     # MQTT Setup
     client = mqtt.Client(client_id=client_id)
     client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
     client.tls_set("dapo.pem")
     client.username_pw_set("rpi", "p00rT7daH7Lnb0HzMfA0d+zY2fAOo3")
     client.connect("dapo.0x80.ch", 8883, 30)
