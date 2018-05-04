@@ -1,21 +1,27 @@
 #!/usr/bin/env python3
-
 import os
 import sys
 import time
 import socket
 import threading
+import configparser
 import paho.mqtt.client as mqtt
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_temperature import BrickletTemperature
 from tinkerforge.bricklet_gps_v2 import BrickletGPSV2
 from tinkerforge.bricklet_barometer import BrickletBarometer
 
-HOST = "localhost"
-PORT = 4223
-TEMPUID = "dR1"
-BARUID = "k5Q"
-GPSUID = "fc9"
+config = configparser.ConfigParser()
+config.read('tinkerforgeconfig.ini')
+cnf =  config['DEFAULT']
+
+HOST = cnf["HOST"]
+PORT = int(cnf["PORT"])
+TEMPUID = cnf["TEMPUID"]
+BARUID = cnf["BARUID"]
+GPSUID = cnf["GPSUID"]
+
+print("Host: " + str(HOST) + ", Port: " + str(PORT) + ", TEMPUID: " + str(TEMPUID) + ", BARUID: " + str(BARUID) + ", GPSUID: " + str(GPSUID) )
 
 client_id = str(socket.gethostname())
 
