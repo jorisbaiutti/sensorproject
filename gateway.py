@@ -12,7 +12,7 @@ from tinkerforge.bricklet_gps_v2 import BrickletGPSV2
 from tinkerforge.bricklet_barometer import BrickletBarometer
 
 config = configparser.ConfigParser()
-config.read('tinkerforgeconfig.ini')
+config.read('/home/dapo/gateway/tinkerforgeconfig.ini')
 cnf =  config['DEFAULT']
 
 HOST = cnf["HOST"]
