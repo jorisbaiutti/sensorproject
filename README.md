@@ -21,7 +21,7 @@ Description=dapo
 After=network.target
 
 [Service]
-ExecStart=/home/pi/raspberry/gateway.py
+ExecStart=/usr/bin/python3 /home/pi/raspberry/gateway.py
 Restart=always
 RestartSec=10
 
